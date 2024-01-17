@@ -1,0 +1,122 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+<h:head>
+  <title>Application gestion etudiant</title>
+  <link href="style.css" rel="stylesheet" />
+</h:head>  
+ <h:body>
+   <div>
+    <h1>liste des etudiants</h1>
+    <h:form>
+     <p:dataTable value="#{etudiantBean.pisteEtudiant}" var="e" style="width:70%; margin= auto;">
+        <p:column>
+        <f:facet name="header">ID</f:facet>
+        #{e.id}
+        </p:column>
+        
+        <p:column>
+        <f:facet name="header">Nom</f:facet>
+        #{e.nom}
+        </p:column>
+          <p:column>
+        <f:facet name="header">Prenom</f:facet>
+        #{e.prenom}
+        </p:column>
+          <p:column>
+        <f:facet name="header">Date de Naissance</f:facet>
+        #{e.datenaiss}
+        </p:column>
+    
+      <p:column colspan="2">
+        <f:facet name="header">Action</f:facet>
+        <div class="row  box-space-top">
+        <h:panelGroup styleClass="label">
+          <h:commandLink action="#{etudiantBean.deleteEtudiant(e)}" value="supprimer"></h:commandLink>
+        </h:panelGroup><br/>
+         <h:panelGroup styleClass="field">
+          <h:commandLink action="#{etudiantBean.affiche(e)}" value="modifier"></h:commandLink>
+        </h:panelGroup>
+        </div>
+      </p:column>
+       </p:dataTable>
+    </h:form>
+    
+    <div class="#{etudiantBean.modif?'cache':'null'}">
+    	<h1>Ajouter un Etudiant</h1>
+    	
+    	<h:form>
+    		<h:panelGrid columns="2" cellpadding="3">
+    		
+    			<h:message for="username1"/><br/>
+    	       <p:outputLabel for="username1" styleClass="block">Nom</p:outputLabel>
+    	       	<p:inputText id= "username1" styleClass="block" value="#{etudiantBean.etudiant.nom}" placeholder="Votre nom" validationMessage="Entrer votre nom." rendered="true" />
+    	       	
+    	       	 
+    			<h:message for="username2"/><br/>
+    	       <p:outputLabel for="username2" styleClass="block">Prenom</p:outputLabel>
+    	       	<p:inputText id= "username2" styleClass="block" value="#{etudiantBean.etudiant.prenom}" placeholder="Votre prenom" validationMessage="Entrer votre prenom." required="true" />
+    	       	
+    			
+    			<h:message for="datenaiss"/><br/>
+    			<p:outputLabel for="datenaiss" styleClass="block">Date de Naissance</p:outputLabel>
+    			
+    			<p:calendar id="datenaiss" value="#{etudiantBean.date}" required="true"  placeholder="votre date de naissance" pattern="yyyy-mm-dd" mode="popup" showOn="button" validationMessage="Entrer votre date de naissance.">
+    			
+    			</p:calendar>
+    			<h:commandButton action="#{etudiantBean.ajoutEtudiant()}" 
+    			value="Ajouter un Etudiant"  />
+    		
+    		</h:panelGrid>
+    	
+    	
+    	
+    	</h:form>
+    
+    
+    </div>
+   </div>
+   
+   
+    <div class="#{etudiantBean.modif?'null':'cache'}">
+    	<h1>Modifier un Etudiant</h1>
+    	
+    	<h:form>
+    		<h:panelGrid columns="2" cellpadding="3">
+    		
+    			<h:message for="username1"/><br/>
+    	       <p:outputLabel for="username1" styleClass="block">Nom</p:outputLabel>
+    	       	<p:inputText id= "username1" styleClass="block" value="#{etudiantBean.etudiant.nom}" placeholder="Votre nom" validationMessage="Entrer votre nom." rendered="true" />
+    	       	
+    	       	 
+    			<h:message for="username2"/><br/>
+    	       <p:outputLabel for="username2" styleClass="block">Prenom</p:outputLabel>
+    	       	<p:inputText id= "username2" styleClass="block" value="#{etudiantBean.etudiant.prenom}" placeholder="Votre prenom" validationMessage="Entrer votre prenom." required="true" />
+    	       	
+    			
+    			<h:message for="datenaiss"/><br/>
+    			<p:outputLabel for="datenaiss" styleClass="block">Date de Naissance</p:outputLabel>
+      			<p:calendar id="datenaiss" value="#{etudiantBean.date}" required="true"  placeholder="votre date de naissance" pattern="dd-mm-yyyy" mode="popup" showOn="button" validationMessage="Entrer votre date de naissance.">
+    			</p:calendar>
+    			<h:commandButton action="#{etudiantBean.modifEtudiant()}" 
+    			value="Modifier"  />
+    		
+    		</h:panelGrid>
+    	
+    	
+    	
+    	</h:form>
+    
+    
+    
+    </div>
+   
+ </h:body>  
+
+</html>
